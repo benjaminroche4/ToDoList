@@ -3,9 +3,28 @@
  * Copyright 2013-2016 Start Bootstrap
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
  */
+.mr-1{
+    margin-left: 10px;
+}
 
-body {
-    padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+.text-small{
+    font-size: 12px;
+}
+
+.font-bold{
+    font-weight: bold;
+}
+
+.container{
+    max-width: 1000px;
+}
+
+.br-10{
+    border-radius: 10px;
+}
+
+.mb-15{
+    margin-bottom: 15px;
 }
 
 .slide-image {

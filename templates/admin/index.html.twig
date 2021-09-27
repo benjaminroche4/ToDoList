@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panel Admin{% endblock %}
+
+{% block body %}
+    <section>
+        <div class="container">
+            <div class="row mt-4">
+                <h1 class="h3 mb-3 font-weight-normal">Panel Admin</h1>
+                {% for user in users|reverse %}
+                    <ul class="list-group m-2">
+                        <li class="list-group-item">
+                            <span class="text-secondary text-small">#{{ user.id }}</span>
+                            {{ user.username }}
+                        </li>
+                        <li class="list-group-item">
+                            <a href="#" class="text-primary">Modifier</a>
+                            <a href="#" class="text-danger mr-1">Supprimer</a>
+                        </li>
+                    </ul>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

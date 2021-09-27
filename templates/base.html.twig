@@ -5,14 +5,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="ToDoList est une application vous permettant de créer et gèrer vos tâches">
+    <meta name="author" content="Benjamin Roche">
 
-    <title>To Do List app</title>
+    <title>ToDoList - {% block title %}{% endblock %} </title>
 
     <!-- Bootstrap Core CSS -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-
     <!-- Custom CSS -->
     <link href="{{ asset('css/shop-homepage.css') }}" rel="stylesheet">
 
@@ -25,73 +24,53 @@
 </head>
 
 <body>
-<nav class="navbar navbar-light navbar-fixed-top" style="background-color: #e3f2fd;" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">To Do List app</a>
 
-            <img src="{{ asset('img/Logo_OpenClassrooms.png') }}" alt="OpenClassrooms" />
+    <!-- Navigation -->
+    <nav class="navbar navbar-light navbar-fixed-top" style="background-color: #e3f2fd;" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="{{ path('app_home') }}">ToDoList</a>
+                <img src="{{ asset('img/Logo_OpenClassrooms.png') }}" alt="OpenClassrooms" />
+            </div>
+            {% if not app.user %}
+                <a href="{{ path('app_login') }}" class="pull-right btn btn-outline-success">Connexion</a>
+            {% else %}
+                <a href="{{ path('app_logout') }}" class="pull-right btn btn-outline-danger">Déconnexion</a>
+            {% endif %}
         </div>
-    </div>
-</nav>
+    </nav>
 
-<!-- Page Content -->
-<div class="container">
-    <div class="row">
-        <a href="{{ path('app_register') }}" class="btn btn-primary">Créer un utilisateur</a>
-
-        {% if app.user %}
-            <a href="{{ path('app_logout') }}" class="pull-right btn btn-danger">Se déconnecter</a>
-        {% endif %}
-
-        {% if not app.user and 'login' != app.request.attributes.get('_route') %}
-            <a href="{{ path('app_login') }}" class="btn btn-success">Se connecter</a>
-        {% endif %}
-    </div>
-
-    <div class="row">
-        <div class="col-md-12">
-            {% for flash_message in app.session.flashBag.get('success') %}
-                <div class="alert alert-success" role="alert">
-                    <strong>Superbe !</strong> {{ flash_message }}
+    <!-- Section header -->
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    {% block header_img %}
+                        <img class="slide-image br-10 mt-4" src="{{ asset('img/todolist_homepage.jpg') }}" alt="todo list">
+                    {% endblock %}
                 </div>
-            {% endfor %}
-
-            {% for flash_message in app.session.flashBag.get('error') %}
-                <div class="alert alert-danger" role="alert">
-                    <strong>Oops !</strong> {{ flash_message }}
-                </div>
-            {% endfor %}
-
-            {% block header_title %}{% endblock %}
-            {% block header_img %}<img class="slide-image" src="{{ asset('img/todolist_homepage.jpg') }}" alt="todo list">{% endblock %}
-        </div>
-    </div>
-
-    <br />
-
-    <div class="row">
-        <div class="col-md-12">
-            {% block body %}{% endblock %}
-        </div>
-    </div>
-</div>
-<!-- /.container -->
-
-<div class="container">
-
-    <hr>
-    <footer>
-        <div class="row">
-            <div class="col-lg-12">
-                <p class="pull-right">Copyright &copy; OpenClassrooms</p>
             </div>
         </div>
-    </footer>
+    </section>
 
-</div>
+    <!-- Body block -->
+    {% block body %}{% endblock %}
 
-<script src="{{ asset('js/jquery.js') }}"></script>
-<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <!-- Footer -->
+    <div class="container">
+        <hr>
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p class="pull-right">Copyright &copy; OpenClassrooms</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- JS -->
+    <script src="{{ asset('js/jquery.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
 </body>
 </html>
+

@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tâches finies{% endblock %}
+
+{% block body %}
+    <section>
+        <div class="container">
+            <div class="row mt-4 d-flex justify-content-center">
+                <h1 class="h3 mb-3 font-weight-normal">Tâches finies</h1>
+                {% for task in tasksDone|reverse %}
+                    <div class="card m-3" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title font-bold text-secondary">{{ task.title }}</h5>
+                            <p class="card-text">{{ task.content }}</p>
+                            <a href="#" class="card-link text-secondary">Modifier</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

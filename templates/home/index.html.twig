@@ -1,7 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Accueil{% endblock %}
 
 {% block body %}
-    <p>Hello World</p>
+    <!-- Section button -->
+    <section>
+        <div class="container">
+            <div class="row mt-4">
+                {% if not app.user %}
+                    <a href="{{ path('app_register') }}" class="btn btn-outline-primary">Créer un compte</a>
+                    <a href="{{ path('app_login') }}" class="btn btn-outline-success mt-3">Se connecter</a>
+                {% else %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('app_admin') }}" class="btn btn-outline-danger mb-3">Gestion des utilisateurs</a>
+                    {% endif %}
+                    <a href="{{ path('app_add_task') }}" class="btn btn-outline-success">Créer une nouvelle tâche</a>
+                    <a href="{{ path('app_task') }}" class="btn btn-outline-primary mt-3">Consulter les tâches en cours</a>
+                    <a href="{{ path('app_task_done') }}" class="btn btn-outline-secondary mt-3">Consulter les tâches terminées</a>
+                {% endif %}
+            </div>
+        </div>
+    </section>
 {% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajoutez une tâche{% endblock %}
+
+{% block body %}
+    <section>
+        <div class="container">
+            <div class="row mt-4">
+                <h1 class="h3 mb-3 font-weight-normal">Ajoutez une tâche</h1>
+                {{ form_start(form) }}
+                {{ form_row(form.title, {"attr": {'class': 'form-control mb-3', 'placeholder': 'Titre'} }) }}
+                {{ form_row(form.content, {"attr": {'class': 'form-control mb-3', 'placeholder': 'Contenu de la tâche...'} }) }}
+
+                <button class="btn btn-success mt-2" type="submit">
+                    Ajouter
+                </button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </section>
+{% endblock %}

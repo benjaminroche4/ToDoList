@@ -9,10 +9,13 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
- * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
+ * @UniqueEntity(fields={"email"}, message="Un compte existe déjà avec cette adresse email")
+ * @UniqueEntity(fields={"username"}, message="Un compte existe déjà avec ce nom d'utilisateur")
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -25,6 +28,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 60,
+     *      minMessage = " Votre email doit faire au minimum {{ limit }} caractères",
+     *      maxMessage = " Votre email doit faire au maximum {{ limit }} caractères"
+     * )
      */
     private $email;
 
@@ -40,7 +49,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=64)
+     * @ORM\Column(type="string", length=64, unique=true)
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 25,
+     *      minMessage = " Votre pseudo doit faire au minimum {{ limit }} caractères",
+     *      maxMessage = " Votre pseduo doit faire au maximum {{ limit }} caractères"
+     * )
      */
     private $username;
 
@@ -179,4 +194,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
 }

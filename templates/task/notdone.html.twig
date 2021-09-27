@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tâches en cours{% endblock %}
+
+{% block body %}
+    <section>
+        <div class="container">
+            <div class="row mt-4 d-flex justify-content-center">
+                <h1 class="h3 mb-3 font-weight-normal">Tâches en cours</h1>
+                {% for message in app.flashes('notification') %}
+                    <div class="alert alert-success">{{ message }}</div>
+                {% endfor %}
+                {% for task in tasks|reverse %}
+                    {% if task.isDone == false  %}
+                        <div class="card m-3" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title font-bold text-primary">{{ task.title }}</h5>
+                                <p class="card-text">{{ task.content }}</p>
+                                <a href="#" class="card-link text-success">Terminer</a>
+                                {% if app.user.id == task.user.id %}
+                                    <a href="#" class="card-link text-danger">Supprimer</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
