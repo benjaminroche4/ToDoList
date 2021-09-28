@@ -7,6 +7,9 @@
         <div class="container">
             <div class="row mt-4">
                 <h1 class="h3 mb-3 font-weight-normal">Panel Admin</h1>
+                {% for message in app.flashes('notification') %}
+                    <div class="alert alert-success">{{ message }}</div>
+                {% endfor %}
                 {% for user in users|reverse %}
                     <ul class="list-group m-2">
                         <li class="list-group-item">
@@ -14,8 +17,8 @@
                             {{ user.username }}
                         </li>
                         <li class="list-group-item">
-                            <a href="#" class="text-primary">Modifier</a>
-                            <a href="#" class="text-danger mr-1">Supprimer</a>
+                            <a href="{{ path("app_admin_update", {"id": user.id })}}" class="text-primary">Modifier</a>
+                            <a href="{{ path('app_admin_delete', {"id": user.id}) }}" class="text-danger mr-1">Supprimer</a>
                         </li>
                     </ul>
                 {% endfor %}

@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panel Admin{% endblock %}
+
+{% block body %}
+    <section>
+        <div class="container">
+            <div class="row mt-4">
+                <h1 class="h3 mb-3 font-weight-normal">Modifier un utilisateur</h1>
+                {% for message in app.flashes('notification') %}
+                    <div class="alert alert-success">{{ message }}</div>
+                {% endfor %}
+                <ul class="list-group m-2">
+                    <li class="list-group-item">
+                        <span class="text-secondary text-small">#{{ user.id }}</span>
+                        {{ user.username }}
+                    </li>
+                    <li class="list-group-item">
+                        <h5>Modifier le rôle :</h5>
+                        {{ form_start(form) }}
+                        {{ form_row(form.username, {"attr": {'class': 'form-control mb-3', 'placeholder': 'Pseudo'} }) }}
+                        {{ form_row(form.email, {"attr": {'class': 'form-control mb-3', 'placeholder': 'Email'} }) }}
+                        {{ form_row(form.roles) }}
+                        <button class="btn btn-primary">Envoyer</button>
+                        {{ form_end(form) }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+{% endblock %}

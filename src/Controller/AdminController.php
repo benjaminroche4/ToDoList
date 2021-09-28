@@ -2,8 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Task;
 use App\Entity\User;
+use App\Form\UpdateUserType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -18,8 +22,47 @@ class AdminController extends AbstractController
 
         $users = $this->getDoctrine()->getRepository(User::class)->findAll();
 
-        return $this->render('admin/index.html.twig', [
+        return $this->render('admin/panel.html.twig', [
             'users' => $users
+        ]);
+    }
+
+    /**
+     * Delete user
+     * @Route("/admin/delete/{id}", name="app_admin_delete")
+     */
+    public function deleteUser(User $user, EntityManagerInterface $entityManager): Response
+    {
+        $entityManager->remove($user);
+        $entityManager->flush();
+
+        $this->addFlash('notification', 'L\'utilisateur a bien été supprimé');
+        return $this->redirectToRoute("app_admin");
+    }
+
+    /**
+     * Update user
+     * @Route("/admin/update/{id}", name="app_admin_update")
+     */
+    public function updateUser(User $user, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(UpdateUserType::class, $user);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() and $form->isValid()) {
+            $user->setUsername($user, $form->get('username')->getData());
+            $user->setEmail($user, $form->get('email')->getData());
+            $user->setRoles($user, $form->get('roles')->getData());
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            $this->addFlash('notification', 'L\'utilisateur a bien été mis à jour');
+            return $this->redirectToRoute('app_admin');
+        }
+
+        return $this->render('admin/update.html.twig', [
+            'form' => $form->createView(),
+            'user' => $user
         ]);
     }
 }
