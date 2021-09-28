@@ -18,7 +18,7 @@
                                 <p class="card-text">{{ task.content }}</p>
                                 <a href="#" class="card-link text-success">Terminer</a>
                                 {% if app.user.id == task.user.id %}
-                                    <a href="#" class="card-link text-danger">Supprimer</a>
+                                    <a href="{{ path('app_task_delete', {"id": task.id}) }}" class="card-link text-danger">Supprimer</a>
                                 {% endif %}
                             </div>
                         </div>
