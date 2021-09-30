@@ -12,7 +12,7 @@
                         <div class="card-body">
                             <h5 class="card-title font-bold text-secondary">{{ task.title }}</h5>
                             <p class="card-text">{{ task.content }}</p>
-                            <a href="#" class="card-link text-secondary">Modifier</a>
+                            <a href="{{ path('app_task_update', {"id": task.id}) }}" class="card-link text-secondary">Modifier</a>
                         </div>
                     </div>
                 {% endfor %}

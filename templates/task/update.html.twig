@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajoutez une tâche{% endblock %}
+
+{% block body %}
+    <section>
+        <div class="container">
+            <div class="row mt-4">
+                <h1 class="h3 mb-3 font-weight-normal">Modifier une tâche</h1>
+                <p><span class="text-secondary text-small">#{{ task.id }}</span>
+                    Tâche créée par <span class="text-capitalize">{{ task.user.username }} </span> le {{ task.createdAt | date('d/m/Y') }}
+                </p>
+                <hr/>
+                {% for message in app.flashes('notification') %}
+                    <div class="alert alert-success">{{ message }}</div>
+                {% endfor %}
+                {{ form_start(form) }}
+                    {{ form_row(form.title, {"attr": {'class': 'form-control mb-3', 'placeholder': 'Titre'} }) }}
+                    {{ form_row(form.content, {"attr": {'class': 'form-control mb-3', 'placeholder': 'Contenu de la tâche...'} }) }}
+                    {{ form_row(form.is_done) }}
+                <button class="btn btn-success mt-2" type="submit">
+                        Modifier
+                    </button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </section>
+{% endblock %}

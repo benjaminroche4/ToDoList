@@ -14,11 +14,16 @@
                     <ul class="list-group m-2">
                         <li class="list-group-item">
                             <span class="text-secondary text-small">#{{ user.id }}</span>
-                            {{ user.username }}
+                            <span class="text-capitalize">{{ user.username }}</span> -
+                            {{ user.email }}
                         </li>
                         <li class="list-group-item">
                             <a href="{{ path("app_admin_update", {"id": user.id })}}" class="text-primary">Modifier</a>
-                            <a href="{{ path('app_admin_delete', {"id": user.id}) }}" class="text-danger mr-1">Supprimer</a>
+                            {% if app.user.id == user.id %}
+                            {% else %}
+                                <a href="{{ path('app_admin_delete', {"id": user.id}) }}" class="text-danger mr-1">Supprimer</a>
+                            {% endif %}
+
                         </li>
                     </ul>
                 {% endfor %}

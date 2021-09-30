@@ -6,13 +6,12 @@
     <section>
         <div class="container">
             <div class="row mt-4">
-                <h1 class="h3 mb-3 font-weight-normal">Ajoutez une tâche</h1>
+                <h1 class="h3 mb-3 font-weight-normal">Ajouter une tâche</h1>
                 {{ form_start(form) }}
                 {{ form_row(form.title, {"attr": {'class': 'form-control mb-3', 'placeholder': 'Titre'} }) }}
                 {{ form_row(form.content, {"attr": {'class': 'form-control mb-3', 'placeholder': 'Contenu de la tâche...'} }) }}
-
                 <button class="btn btn-success mt-2" type="submit">
-                    Ajouter
+                    Modifier
                 </button>
                 {{ form_end(form) }}
             </div>

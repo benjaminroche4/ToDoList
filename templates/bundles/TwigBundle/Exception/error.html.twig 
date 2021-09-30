@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Erreur{% endblock %}
+
+{% block body %}
+    <section>
+        <div class="container">
+            <div class="row mt-4 d-flex justify-content-center">
+                <h1 class="h3 mb-3 font-weight-normal text-center">Erreur - Page non trouvée</h1>
+            </div>
+        </div>
+    </section>
+{% endblock %}

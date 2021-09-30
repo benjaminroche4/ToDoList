@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Task;
 use App\Form\TaskType;
+use App\Form\UpdateTaskType;
 use App\Repository\TaskRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -80,7 +81,32 @@ class TaskController extends AbstractController
 
         $this->addFlash('notification', 'La tâche a bien été supprimée !');
         return $this->redirectToRoute("app_task");
-
     }
 
+    /**
+     * Update task
+     * @Route("/task/update/{id}", name="app_task_update")
+     */
+    public function updateTask(Task $task, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(UpdateTaskType::class, $task);
+        $form->handleRequest($request);
+
+        if( $form->isSubmitted() && $form->isValid()) {
+            $task->setTitle($form->get('title')->getData());
+            $task->setContent($form->get('content')->getData());
+            $task->setIsDone($form->get('is_done')->getData());
+
+            $entityManager->persist($task);
+            $entityManager->flush();
+
+            $this->addFlash('notification', 'La tâche a bien été modifié.');
+            return $this->redirectToRoute('app_task_update', ['id'=>$task->getId()]);
+        }
+
+            return $this->render('task/update.html.twig', [
+                'form' => $form->createView(),
+                'task' => $task
+        ]);
+    }
 }
