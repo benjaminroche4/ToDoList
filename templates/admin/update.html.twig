@@ -13,15 +13,15 @@
                 <ul class="list-group m-2">
                     <li class="list-group-item">
                         <span class="text-secondary text-small">#{{ user.id }}</span>
-                        {{ user.username }}
+                        <span class="text-capitalize">{{ user.username }}</span> - {{ user.email }}
                     </li>
-                    <li class="list-group-item">
-                        <h5>Modifier le rôle :</h5>
+                    <li class="list-group-item"><br/>
+                        <h5>Modifier :</h5>
                         {{ form_start(form) }}
                         {{ form_row(form.username, {"attr": {'class': 'form-control mb-3', 'placeholder': 'Pseudo'} }) }}
                         {{ form_row(form.email, {"attr": {'class': 'form-control mb-3', 'placeholder': 'Email'} }) }}
-                        {{ form_row(form.roles) }}
-                        <button class="btn btn-primary">Envoyer</button>
+                        {{ form_row(form.roles)}}
+                        <button class="btn btn-success">Modifier</button>
                         {{ form_end(form) }}
                     </li>
                 </ul>

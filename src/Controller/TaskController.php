@@ -16,8 +16,9 @@ class TaskController extends AbstractController
 {
 
     /**
-     * First method to select
-     * @Route("/task", name="app_task")
+     * Show task not done
+     * (First method to select)
+     * @Route("/tasks", name="app_task")
      */
     public function notDone(): Response
     {
@@ -29,8 +30,9 @@ class TaskController extends AbstractController
     }
 
     /**
-     * Second method to select
-     * @Route("/task/done", name="app_task_done")
+     * Show task done
+     * (Second method to select)
+     * @Route("/tasks/done", name="app_task_done")
      */
     public function isDone(): Response
     {
@@ -43,7 +45,8 @@ class TaskController extends AbstractController
 
 
     /**
-     * @Route("/task/add", name="app_add_task")
+     * Add task
+     * @Route("/tasks/add", name="app_add_task")
      */
     public function newTask(TaskRepository $taskRepository, Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -72,20 +75,26 @@ class TaskController extends AbstractController
 
     /**
      * Delete task
-     * @Route("/task/delete/{id}", name="app_task_delete")
+     * @Route("/tasks/delete/{id}", name="app_task_delete")
      */
     public function delete(Task $task, EntityManagerInterface $entityManager): Response
     {
-        $entityManager->remove($task);
-        $entityManager->flush();
+        if($this->getUser() == $task->getUser()) {
+            $entityManager->remove($task);
+            $entityManager->flush();
 
-        $this->addFlash('notification', 'La tâche a bien été supprimée !');
-        return $this->redirectToRoute("app_task");
+            $this->addFlash('notification', 'La tâche a bien été supprimée !');
+            return $this->redirectToRoute("app_task");
+        }
+        else {
+            $this->addFlash('notification_error', 'Vous n\'avez pas l\'autorisation de supprimer cette tache');
+            return $this->redirectToRoute('app_task');
+        }
     }
 
     /**
      * Update task
-     * @Route("/task/update/{id}", name="app_task_update")
+     * @Route("/tasks/update/{id}", name="app_task_update")
      */
     public function updateTask(Task $task, Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -108,5 +117,18 @@ class TaskController extends AbstractController
                 'form' => $form->createView(),
                 'task' => $task
         ]);
+    }
+
+    /**
+     * Toggle task
+     * @Route("/tasks/toggle/{id}", name="app_task_toggle")
+     */
+    public function toggleTask(Task $task): Response
+    {
+        $task->setIsDone(1);
+        $this->getDoctrine()->getManager()->flush();
+
+        $this->addFlash('notification', 'La tâche a bien été terminée !');
+        return $this->redirectToRoute('app_task');
     }
 }

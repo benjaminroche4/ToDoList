@@ -17,7 +17,7 @@ class UpdateTaskType extends AbstractType
             ->add('title',null, array('label' => false))
             ->add('content',null, array('label' => false))
             ->add('is_done', CheckboxType::class, array(
-                'label' => 'Marquer comme fini',
+                'label' => 'Marquer comme finie',
                 'required' => false
             ))
         ;

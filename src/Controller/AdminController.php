@@ -19,7 +19,6 @@ class AdminController extends AbstractController
      */
     public function allUsers(): Response
     {
-
         $users = $this->getDoctrine()->getRepository(User::class)->findAll();
 
         return $this->render('admin/panel.html.twig', [
@@ -52,7 +51,6 @@ class AdminController extends AbstractController
         if($form->isSubmitted() and $form->isValid()) {
             $user->setUsername($user, $form->get('username')->getData());
             $user->setEmail($user, $form->get('email')->getData());
-            $user->setRoles($user, $form->get('roles')->getData());
             $entityManager->persist($user);
             $entityManager->flush();
 

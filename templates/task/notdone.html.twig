@@ -10,13 +10,16 @@
                 {% for message in app.flashes('notification') %}
                     <div class="alert alert-success">{{ message }}</div>
                 {% endfor %}
+                {% for message in app.flashes('notification_error') %}
+                    <div class="alert alert-warning">{{ message }}</div>
+                {% endfor %}
                 {% for task in tasks|reverse %}
                     {% if task.isDone == false  %}
                         <div class="card m-3" style="width: 18rem;">
                             <div class="card-body">
                                 <h5 class="card-title font-bold text-primary">{{ task.title }}</h5>
                                 <p class="card-text">{{ task.content }}</p>
-                                <a href="#" class="card-link text-success">Terminer</a>
+                                <a href="{{ path('app_task_toggle', {'id' : task.id }) }}" class="card-link text-success">Terminer</a>
                                 <a href="{{ path('app_task_update', {"id": task.id}) }}" class="card-link text-secondary">Modifier</a>
                                 {% if app.user.id == task.user.id %}
                                     <a href="{{ path('app_task_delete', {"id": task.id}) }}" class="card-link text-danger">Supprimer</a>
