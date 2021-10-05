@@ -20,7 +20,7 @@
                         {{ form_start(form) }}
                         {{ form_row(form.username, {"attr": {'class': 'form-control mb-3', 'placeholder': 'Pseudo'} }) }}
                         {{ form_row(form.email, {"attr": {'class': 'form-control mb-3', 'placeholder': 'Email'} }) }}
-                        {{ form_row(form.roles)}}
+                        {{ form_row(form.roles, {"attr": {'class': 'form-control mb-3'} }) }}
                         <button class="btn btn-success">Modifier</button>
                         {{ form_end(form) }}
                     </li>
