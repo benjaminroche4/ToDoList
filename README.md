@@ -1,6 +1,7 @@
 <h1>ToDolist</h1>
 Amélioration d'une application existante de ToDo & Co.
 
+
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/5e14b5b898024ed0a9f52f72e5d09467)](https://www.codacy.com/gh/benjaminroche4/ToDoList/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=benjaminroche4/ToDoList&amp;utm_campaign=Badge_Grade)
 
 <h2>Instalation du projet</h2>
@@ -32,7 +33,7 @@ $ php bin/console doctrine:schema:migrate
 $ php bin/console doctrine:fixtures:load
 ```
 
-6. Lancez le serveur à l'aide du terminal de commande :
+6. Lancez le serveur depuis le terminal de commande :
 ```
 $ symfony server:start
 ```
