@@ -54,4 +54,4 @@ $ php bin/phpunit tests
 ```
 
 <h2 id="contribution">Contribution</h2>
-Voir la documentation : <a href="#">CONTRIBUTING.md</a>.
+Voir la documentation : <a href="https://github.com/benjaminroche4/ToDoList/blob/master/CONTRIBUTING.md">CONTRIBUTING.md</a>.
