@@ -1,11 +1,9 @@
 <h1>ToDolist</h1>
-<hr>
 Amélioration d'une application existante de ToDo & Co.
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/5e14b5b898024ed0a9f52f72e5d09467)](https://www.codacy.com/gh/benjaminroche4/ToDoList/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=benjaminroche4/ToDoList&amp;utm_campaign=Badge_Grade)
 
 <h2>Instalation du projet</h2>
-<hr>
 
 1. Cloner ou télécharger le repository GitHub dans le dossier voulu :
 
@@ -42,7 +40,6 @@ $ symfony server:start
 Le projet est à présent prêt à être utilisé. 
 
 <h2>Tests unitaires</h2>
-<hr>
 Pour faire fonctionner l'ensemble des tests unitaires utiliser la commande : 
 
 ```
@@ -50,5 +47,4 @@ $ php bin/phpunit tests
 ```
 
 <h2>Contribution</h2>
-<hr>
 Voir la documentation : <a href="#">CONTRIBUTING.md</a>.
