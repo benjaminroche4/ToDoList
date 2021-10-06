@@ -19,6 +19,7 @@ class UpdateUserType extends AbstractType
             ->add('email',null, array('label' => false))
             ->add('username',null, array('label' => false))
             ->add('roles', ChoiceType::class, [
+                    'placeholder' => 'Choisissez un rôle...',
                     'label' => false,
                     'multiple' => false,
                     'choices' => [

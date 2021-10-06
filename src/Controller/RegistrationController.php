@@ -31,8 +31,6 @@ class RegistrationController extends AbstractController
      */
     public function register(Request $request): Response
     {
-        $roles[] = 'ROLE_USER';
-
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
@@ -44,7 +42,7 @@ class RegistrationController extends AbstractController
             );
             $user->setUsername($form->get('username')->getData());
             $user->setEmail($form->get('email')->getData());
-            $user->setRoles(array_unique($roles));
+            $user->setRoles($form->get('roles')->getData());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();

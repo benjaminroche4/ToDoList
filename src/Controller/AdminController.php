@@ -48,10 +48,10 @@ class AdminController extends AbstractController
         $form = $this->createForm(UpdateUserType::class, $user);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() and $form->isValid()) {
-            $user->setUsername($user, $form->get('username')->getData());
-            $user->setEmail($user, $form->get('email')->getData());
-            $user->setEmail($user, $form->get('roles')->getData());
+        if($form->isSubmitted() && $form->isValid()) {
+            $user->setUsername($form->get('username')->getData());
+            $user->setEmail($form->get('email')->getData());
+            $user->setRoles($form->get('roles')->getData());
             $entityManager->persist($user);
             $entityManager->flush();
 
