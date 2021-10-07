@@ -32,12 +32,18 @@ $ php bin/phpunit tests
 ```
 Si besoin mettez à jour les tests existants ou créez-en de nouveaux pour tester votre contribution.
 
-<h3>5. Créez une pull request</h3>
+<h3>5. Push et pull request</h3>
 Pour finir, envoyez vos modifications sur le repoistory GitHub et créez une pull request. Si vos modifications sont acceptées 
 alors elles seront deployées vers la branche principale et mise en production. 
 <hr>
 
 <h2>Règles à respecter</h2>
     <ul>
-        <li></li>
+        <li>Votre code doit être commenté en anglais. Il doit être facile pour les prochains developpeurs de s'y retrouver.
+        Utiliser des phrases concis pour décrire au mieux l'utilité.</li>
+        <li>Indenter votre code la bonne manière. Prenez exemple sur les parties déjà developper.</li>
+        <li>Pensez aux performances de l'application. Faites des requêtes qui permettront d'avoir les meilleurs résultats de requêtes.</li>
+        <li>Respectez les bonnes pratiques PSR-1.</li> 
     </ul>
+
+Vous êtes à présent prêt pour contribuer au projet ! 
