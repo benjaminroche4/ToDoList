@@ -7,7 +7,7 @@ qualité et règles à respecter afin que le projet reste stable.
     </ul>
 <hr>
 
-<h2>Directives de soumission</h2>
+<h2 id="directives">Directives de soumission</h2>
 <h3>1. Installez le projet en local</h3>
 Dans un premier temps il est important de récupérer et d’installer le projet en local afin d’y apporter les modifications 
 nécessaires. Suivez les étapes de l'installation dans le fichier <a href="https://github.com/benjaminroche4/ToDoList/blob/master/README.md">README.md</a>.
@@ -37,7 +37,7 @@ Pour finir, envoyez vos modifications sur le repoistory GitHub et créez une pul
 alors elles seront deployées vers la branche principale et mise en production. 
 <hr>
 
-<h2>Règles à respecter</h2>
+<h2 id="regles">Règles à respecter</h2>
     <ul>
         <li>Votre code doit être commenté en anglais. Il doit être facile pour les prochains developpeurs de s'y retrouver.
         Utiliser des phrases concis pour décrire au mieux l'utilité.</li>
