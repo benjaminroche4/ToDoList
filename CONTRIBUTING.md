@@ -15,21 +15,24 @@ nécessaires. Suivez les étapes de l'installation dans le fichier <a href="http
 <h3>2. Créez une issue</h3>
 Rendez-vous dans l'onglet "Issues" du repository GitHub est cliquez sur "New issue". 
 Donnez un titre clair et une description la plus précise possible de ce que vous souhaitez modifier ou developper. 
-Cela permettra de suivre la nouvelle tâche et son avencement. 
+Cela permettra de suivre l'avancement de la tâche. 
 
 <h3>3. Créez une nouvelle branche</h3>
 À présent, créez une nouvelle branche pour votre contribution. Nommez la de façon claire afin de pouvoir s'y retrouver facilement
 s'y possible en anglais. 
 Par exemple : 
+
 ```
 $ git checkout -b new-branch-name
 ```
 
 <h3>4. Testez vos modifications</h3>
 Lancez les tests unitaires afin de voir si ils fonctionnent toujours après vos modifications.
+
 ```
 $ php bin/phpunit tests 
 ```
+
 Si besoin mettez à jour les tests existants ou créez-en de nouveaux pour tester votre contribution.
 
 <h3>5. Push et pull request</h3>
