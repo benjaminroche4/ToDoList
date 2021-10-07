@@ -12,29 +12,29 @@ Amélioration d'une application existante de ToDo & Co.
 <hr>
 <h2 id="installation">Installation du projet</h2>
 
-1. Cloner ou télécharger le repository GitHub dans le dossier voulu :
+1. Clonez ou téléchargez le repository GitHub dans le dossier voulu :
 
 ```
 https://github.com/benjaminroche4/ToDoList.git
 ```
 
-2. Télécharger les dépendances nécessaires à l'aide de composer :
+2. Téléchargez les dépendances nécessaires à l'aide de composer :
 ```
 $ composer install 
 ```
 
-3. Configurer la connexion à la base de données dans le fichier ".env" à la racine du projet : 
+3. Configurez la connexion à la base de données dans le fichier ".env" à la racine du projet : 
 ```
 DATABASE_URL="mysql://root:root@127.0.0.1:8889/db_name?serverVersion=13&charset=utf8"
 ```
 
-4. Installer la base de données à l'aide des commandes suivantes dans votre terminal :
+4. Installez la base de données à l'aide des commandes suivantes dans votre terminal :
 ```
 $ php bin/console doctrine:database:create
 $ php bin/console doctrine:schema:migrate
 ```
 
-5. Télécharger les fixtures :
+5. Téléchargez les fixtures :
 ```
 $ php bin/console doctrine:fixtures:load
 ```
