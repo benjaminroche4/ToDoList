@@ -18,7 +18,7 @@ Donnez un titre clair et une description la plus précise possible de ce que vou
 Cela permettra de suivre l'avancement de la tâche. 
 
 <h3>3. Créez une nouvelle branche</h3>
-À présent, créez une nouvelle branche pour votre contribution. Nommez la de façon claire afin de pouvoir s'y retrouver facilement
+À présent créez une nouvelle branche pour votre contribution. Nommez la de façon claire afin de pouvoir s'y retrouver facilement
 s'y possible en anglais. 
 Par exemple : 
 
@@ -44,8 +44,8 @@ alors elles seront deployées vers la branche principale et mise en production.
     <ul>
         <li>Votre code doit être commenté en anglais. Il doit être facile pour les prochains developpeurs de s'y retrouver.
         Utiliser des phrases concis pour décrire au mieux l'utilité.</li>
-        <li>Indenter votre code la bonne manière. Prenez exemple sur les parties déjà developper.</li>
-        <li>Pensez aux performances de l'application. Faites des requêtes qui permettront d'avoir les meilleurs résultats de requêtes.</li>
+        <li>Indenter votre code de la bonne manière. Prenez exemple sur les parties déjà developpé.</li>
+        <li>Pensez aux performances de l'application. Faites des requêtes qui permettront d'avoir les meilleurs résultats.</li>
         <li>Respectez les bonnes pratiques PSR-1.</li> 
     </ul>
 
