@@ -4,6 +4,7 @@
 namespace App\Tests\Controller;
 
 
+use App\Entity\Task;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -66,5 +67,16 @@ class TaskControllerTest extends WebTestCase
 
         $this->assertResponseRedirects();
         $client->followRedirect();
+    }
+
+    public function testIsEmpty(){
+        $task = new Task();
+
+        $this->assertEmpty($task->getId());
+        $this->assertEmpty($task->getUser());
+        $this->assertEmpty($task->getContent());
+        $this->assertEmpty($task->getTitle());
+        $this->assertEmpty($task->getCreatedAt());
+        $this->assertEmpty($task->getIsDone());
     }
 }

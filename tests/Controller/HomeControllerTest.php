@@ -8,7 +8,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class HomeControllerTest extends WebTestCase
 {
-
     public function testHomepageIsUp(){
         $client = static::createClient();
         $client->request('GET', '/');
