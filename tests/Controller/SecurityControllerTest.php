@@ -5,11 +5,15 @@ namespace App\Tests\Controller;
 
 
 use App\Entity\User;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
 class SecurityControllerTest extends WebTestCase
 {
+    /**
+     * Login page
+     */
     public function testDisplayLogin(){
         $client = static::createClient();
         $client->request('GET', '/login');
@@ -18,6 +22,9 @@ class SecurityControllerTest extends WebTestCase
         $this->assertSelectorNotExists('.alert.alert-danger');
     }
 
+    /**
+     * Login with bads credentials
+     */
     public function testLoginWithBadCredentials(){
         $client = static::createClient();
         $crawler = $client->request('GET', '/login');
@@ -32,6 +39,9 @@ class SecurityControllerTest extends WebTestCase
         $this->assertSelectorExists('.alert.alert-danger');
     }
 
+    /**
+     * Login with valids credentials
+     */
     public function testSuccessfullLogin(){
         $client = static::createClient();
         $crawler = $client->request('GET', '/login');
@@ -43,4 +53,6 @@ class SecurityControllerTest extends WebTestCase
 
         $this->assertResponseRedirects('/');
     }
+
+
 }

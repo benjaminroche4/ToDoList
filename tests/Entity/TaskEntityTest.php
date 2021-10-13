@@ -10,6 +10,9 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class TaskEntityTest extends KernelTestCase
 {
+    /**
+     * Try insert valid entity
+     */
     public function testValidEntity(){
         $task = (new Task())
             ->setIsDone(0)
@@ -22,6 +25,9 @@ class TaskEntityTest extends KernelTestCase
         $this->assertCount(0, $error);
     }
 
+    /**
+     * Try insert bad entity
+     */
     public function testBadEntity(){
         $task = (new Task())
             ->setIsDone(0)
