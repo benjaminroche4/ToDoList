@@ -1,42 +1,55 @@
 <?php
 
-
 namespace App\Tests\Entity;
 
 use App\Entity\Task;
 use App\Entity\User;
-use Doctrine\Persistence\ObjectManager;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use App\Repository\UserRepository;
+use PHPUnit\Framework\TestCase;
 
-class TaskEntityTest extends KernelTestCase
+class TaskEntityTest extends TestCase
 {
-    /**
-     * Try insert valid entity
-     */
-    public function testValidEntity(){
-        $task = (new Task())
-            ->setIsDone(0)
-            ->setContent('Ceci est le contenu test')
-            ->setTitle('Ceci est le titre test')
-            ->setCreatedAt(new \DateTimeImmutable());
+    public function testIsTrue()
+    {
+        $task = new Task();
+        $datetime = new \DateTimeImmutable();
 
-        self::bootKernel();
-        $error = self::getContainer()->get('validator')->validate($task);
-        $this->assertCount(0, $error);
+        $task->setTitle('title')
+            ->setCreatedAt($datetime)
+            ->setIsDone(true)
+            ->setContent('contenu');
+
+        $this->assertTrue($task->getTitle() === 'title');
+        $this->assertTrue($task->getCreatedAt() === $datetime);
+        $this->assertTrue($task->getContent() === 'contenu');
+        $this->assertTrue($task->getIsDone() === true);
     }
 
-    /**
-     * Try insert bad entity
-     */
-    public function testBadEntity(){
-        $task = (new Task())
-            ->setIsDone(0)
-            ->setContent('')
-            ->setTitle('')
-            ->setCreatedAt(new \DateTimeImmutable());
+    public function testIsFalse()
+    {
+        $task = new Task();
+        $datetime = new \DateTimeImmutable();
 
-        self::bootKernel();
-        $error = self::getContainer()->get('validator')->validate($task);
-        $this->assertCount(2, $error);
+        $task->setTitle('title')
+            ->setCreatedAt($datetime)
+            ->setIsDone(true)
+            ->setContent('contenu');
+
+        $this->assertFalse($task->getTitle() === 'false');
+        $this->assertFalse($task->getCreatedAt() === new \DateTimeImmutable());
+        $this->assertFalse($task->getContent() === 'false');
+        $this->assertFalse($task->getIsDone() === false);
+    }
+
+    public function testIsEmpty()
+    {
+        $task = new Task();
+
+        $this->assertEmpty($task->getId());
+        $this->assertEmpty($task->getUser());
+        $this->assertEmpty($task->getIsDone());
+        $this->assertEmpty($task->getContent());
+        $this->assertEmpty($task->getCreatedAt());
+        $this->assertEmpty($task->getTitle());
     }
 }

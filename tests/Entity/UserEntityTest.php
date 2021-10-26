@@ -1,48 +1,52 @@
 <?php
 
-
 namespace App\Tests\Entity;
 
 use App\Entity\Task;
 use App\Entity\User;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use PHPUnit\Framework\TestCase;
 
-class UserEntityTest extends KernelTestCase
+class UserEntityTest extends TestCase
 {
-    /**
-     * Try insert valid entity
-     */
-    public function testValidEntity(){
-        $user = (new User())
-            ->setRoles(array('[ROLE_USER]'))
-            ->setEmail('userTest@test.com')
-            ->setUsername('userTest')
-            ->setPassword('userPassword');
-        self::bootKernel();
+    public function testIsTrue()
+    {
+        $user = new User();
+        $roles = 'ROLES_USER';
 
-        $error = self::getContainer()->get('validator')->validate($user);
-        $this->assertCount(0, $error);
-    }
-
-    /**
-     * Try insert bad entity
-     */
-    public function testBadEntity(){
-        $user = (new User())
-            ->setRoles(array('[ROLE_USER]'))
-            ->setEmail('')
-            ->setUsername('')
+        $user->setUsername('username')
+            ->setEmail('email@email.com')
             ->setPassword('password');
-        self::bootKernel();
 
-        $error = self::getContainer()->get('validator')->validate($user);
-        $this->assertCount(2, $error);
+        $this->assertTrue($user->getUsername() === 'username');
+        $this->assertTrue($user->getEmail() === 'email@email.com');
+        $this->assertTrue($user->getPassword() === 'password');
     }
 
-    /**
-     * Insert and remove task by user
-     */
-    public function testAddToRemoveTask(){
+    public function testIsFalse()
+    {
+        $user = new User();
+
+        $user->setUsername('username')
+            ->setEmail('email@email.com')
+            ->setPassword('password');
+
+        $this->assertFalse($user->getUsername() === 'false');
+        $this->assertFalse($user->getEmail() === 'false');
+        $this->assertFalse($user->getPassword() === 'false');
+    }
+
+    public function testIsEmpty()
+    {
+        $user = new User();
+
+        $this->assertEmpty($user->getId());
+        $this->assertEmpty($user->getUserIdentifier());
+        $this->assertEmpty($user->getSalt());
+        $this->assertEmpty($user->eraseCredentials());
+        $this->assertEmpty($user->getTasks());
+    }
+
+    public function testAddAndRemoveTask(){
         $user = new User();
         $task = new Task();
 

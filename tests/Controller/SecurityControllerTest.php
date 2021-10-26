@@ -1,58 +1,36 @@
 <?php
 
-
 namespace App\Tests\Controller;
 
-
-use App\Entity\User;
-use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\HttpFoundation\Response;
 
 class SecurityControllerTest extends WebTestCase
 {
-    /**
-     * Login page
-     */
-    public function testDisplayLogin(){
+    public function testLoginPageIsUp(): void
+    {
         $client = static::createClient();
         $client->request('GET', '/login');
-        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+
+        $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('h1', 'Connectez-vous');
-        $this->assertSelectorNotExists('.alert.alert-danger');
     }
 
-    /**
-     * Login with bads credentials
-     */
-    public function testLoginWithBadCredentials(){
+    public function testLoginFormIsUp(): void
+    {
         $client = static::createClient();
         $crawler = $client->request('GET', '/login');
-        $form = $crawler->selectButton('Connexion')->form([
-            'email' => 'fake@email.fr',
-            'password' => 'fakepassword'
+
+        $buttonCrawlerMode = $crawler->selectButton('Connexion');
+        $buttonCrawlerMode->form();
+
+        $form = $buttonCrawlerMode->form([
+            'email'=>'admin1@admin.com',
+            'password'=>'admin'
         ]);
+
         $client->submit($form);
 
-        $this->assertResponseRedirects();
-        $client->followRedirect();
-        $this->assertSelectorExists('.alert.alert-danger');
+        $client->request('GET', '/');
+        $this->assertResponseIsSuccessful();
     }
-
-    /**
-     * Login with valids credentials
-     */
-    public function testSuccessfullLogin(){
-        $client = static::createClient();
-        $crawler = $client->request('GET', '/login');
-        $form = $crawler->selectButton('Connexion')->form([
-            'email' => '2email@email.com',
-            'password' => 'password'
-        ]);
-        $client->submit($form);
-
-        $this->assertResponseRedirects('/');
-    }
-
-
 }

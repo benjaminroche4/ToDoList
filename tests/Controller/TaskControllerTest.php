@@ -1,82 +1,123 @@
 <?php
 
-
-namespace App\Tests\Controller;
-
+namespace App\Tests;
 
 use App\Entity\Task;
+use App\Repository\TaskRepository;
 use App\Repository\UserRepository;
+use Doctrine\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class TaskControllerTest extends WebTestCase
 {
-    public function testTaskNotDone(){
-        $client = static::createClient();
-        $userRepository = static::getContainer()->get(UserRepository::class);
+    private $objectManager;
 
-        $testUser = $userRepository->findOneByEmail('2email@email.com');
+    public function testTaskPageIsUp(): void
+    {
+        $client = static::createClient();
+
+        $userRepository = static::getContainer()->get(UserRepository::class);
+        $testUser = $userRepository->findOneByEmail('admin1@admin.com');
         $client->loginUser($testUser);
 
         $client->request('GET', '/tasks');
+
         $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('h1', 'Tâches en cours');
     }
 
-    public function testTaskIsDone(){
+    public function testTaskDonePageIsUp(): void
+    {
         $client = static::createClient();
-        $userRepository = static::getContainer()->get(UserRepository::class);
 
-        $testUser = $userRepository->findOneByEmail('2email@email.com');
+        $userRepository = static::getContainer()->get(UserRepository::class);
+        $testUser = $userRepository->findOneByEmail('admin1@admin.com');
         $client->loginUser($testUser);
 
         $client->request('GET', '/tasks/done');
+
         $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('h1', 'Tâches finies');
     }
 
-    public function testNewTask(){
+    public function testNewTaskIsUp(): void
+    {
         $client = static::createClient();
-        $userRepository = static::getContainer()->get(UserRepository::class);
 
-        $testUser = $userRepository->findOneByEmail('2email@email.com');
+        $userRepository = static::getContainer()->get(UserRepository::class);
+        $testUser = $userRepository->findOneByEmail('admin1@admin.com');
         $client->loginUser($testUser);
 
         $crawler = $client->request('GET', '/tasks/add');
-        $form = $crawler->selectButton('Envoyer')->form([
-            'task[title]' => 'Title test',
-            'task[content]' => 'Content test'
+        $this->assertSelectorTextContains('h1', 'Ajouter une tâche');
+
+        $buttonCrawlerMode = $crawler->selectButton('Envoyer');
+
+        $form = $buttonCrawlerMode->form([
+            'task[title]'=>'Title test',
+            'task[content]'=>'Content test'
         ]);
+
         $client->submit($form);
 
+        $client->request('GET', '/tasks');
+        $this->assertResponseIsSuccessful();
+    }
+
+    public function testUpdateTaskIsUp()
+    {
+        $client = static::createClient();
+
+        $userRepository = static::getContainer()->get(UserRepository::class);
+        $testUser = $userRepository->findOneByEmail('admin1@admin.com');
+        $client->loginUser($testUser);
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $taskRepository = $entityManager->getRepository(Task::class);
+        $taskId = $taskRepository->findOneBy(['title'=>'title'])->getId();
+        $crawler = $client->request('GET', '/tasks/update/'.$taskId);
+
+        $buttonCrawlerMode = $crawler->selectButton('Modifier');
+        $buttonCrawlerMode->form();
+
+        $form = $buttonCrawlerMode->form([
+            'update_task[title]'=>'title',
+            'update_task[content]'=>'content'
+        ]);
+
+        $client->submit($form);
+
+        $client->request('GET', '/tasks/update/'.$taskId);
+        $this->assertResponseIsSuccessful();
+    }
+
+    public function testToggleTask()
+    {
+        $client = static::createClient();
+
+        $userRepository = static::getContainer()->get(UserRepository::class);
+        $testUser = $userRepository->findOneByEmail('admin1@admin.com');
+        $client->loginUser($testUser);
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $taskRepository = $entityManager->getRepository(Task::class);
+        $taskId = $taskRepository->findOneBy(['title'=>'title'])->getId();
+        $client->request('GET', '/tasks/toggle/'.$taskId);
         $this->assertResponseRedirects('/tasks');
     }
 
-    public function testBadNewTask(){
+    public function testDeleteTask()
+    {
         $client = static::createClient();
-        $userRepository = static::getContainer()->get(UserRepository::class);
 
-        $testUser = $userRepository->findOneByEmail('2email@email.com');
+        $userRepository = static::getContainer()->get(UserRepository::class);
+        $testUser = $userRepository->findOneByEmail('admin1@admin.com');
         $client->loginUser($testUser);
 
-        $crawler = $client->request('GET', '/tasks/add');
-        $form = $crawler->selectButton('Envoyer')->form([
-            'task[title]' => 'Title test',
-            'task[content]' => 'Content test'
-        ]);
-        $client->submit($form);
-
-        $this->assertResponseRedirects();
-        $client->followRedirect();
-    }
-
-    public function testIsEmpty(){
-        $task = new Task();
-
-        $this->assertEmpty($task->getId());
-        $this->assertEmpty($task->getUser());
-        $this->assertEmpty($task->getContent());
-        $this->assertEmpty($task->getTitle());
-        $this->assertEmpty($task->getCreatedAt());
-        $this->assertEmpty($task->getIsDone());
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $taskRepository = $entityManager->getRepository(Task::class);
+        $taskId = $taskRepository->findOneBy(['title'=>'Titre n°1'])->getId();
+        $client->request('GET', '/tasks/delete/'.$taskId);
+        $this->assertResponseRedirects('/tasks');
     }
 }
