@@ -1,6 +1,6 @@
 <h1>Contribution au projet ToDoList</h1>
-ToDoList est un projet auquel tu peux contribuer. Ce document à été rédigé dans le but de t’informer sur les process de 
-qualité et règles à respecter afin que le projet reste stable. 
+ToDoList est un projet auquel tu peux contribuer. Ce document a été rédigé dans le but de t’informer sur les process de 
+qualités et règles à respecter afin que le projet reste stable. <br/>
     <ul>
         <li><a href="#directives">Directives de soumission</a></li>
         <li><a href="#regles">Règles à respecter</a></li>
@@ -44,7 +44,7 @@ alors elles seront deployées vers la branche principale et mise en production.
     <ul>
         <li>Votre code doit être commenté en anglais. Il doit être facile pour les prochains developpeurs de s'y retrouver.
         Utiliser des phrases concis pour décrire au mieux l'utilité.</li>
-        <li>Indenter votre code de la bonne manière. Prenez exemple sur les parties déjà developpé.</li>
+        <li>Indenter votre code de la bonne manière. Prenez exemple sur les parties déjà développé.</li>
         <li>Pensez aux performances de l'application. Faites des requêtes qui permettront d'avoir les meilleurs résultats.</li>
         <li>Respectez les bonnes pratiques PSR-1.</li> 
     </ul>
